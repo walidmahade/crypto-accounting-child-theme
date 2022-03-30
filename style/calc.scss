@@ -145,14 +145,15 @@ body {
 
   // .form-group------------
   .form-group {
-    margin-top: 50px;
+    margin-top: 34px;
 
     @media only screen and (max-width: 567px) {
       margin-top: 30px;
     }
 
     input[type="text"],
-    input[type="email"]{
+    input[type="number"],
+    input[type="email"] {
       width: 100%;
       font-weight: normal;
       font-size: 14px;
@@ -275,8 +276,15 @@ body {
 }
 
 #calc-2 {
+  .button-wrapper {
+    margin-top: 37px;
+  }
+
   .heading-top {
     margin: 42px 0 32px 0;
+    @media screen and (max-width: 768px) {
+      margin: 32px 0 20px 0;
+    }
   }
 
   .checkbox-items {
@@ -313,16 +321,15 @@ body {
     font-size: 24px;
     line-height: 29px;
     margin: 0;
-    padding-bottom: 30px;
 
     @media only screen and (max-width: 567px) {
       font-weight: 600;
       font-size: 20px;
       line-height: 20px;
-      padding-bottom: 20px;
     }
   }
   .prices {
+    padding-top: 30px;
     font-weight: 700;
     font-size: 48px;
     line-height: 58px;
@@ -330,6 +337,7 @@ body {
     margin: 0;
 
     @media only screen and (max-width: 567px) {
+      padding-top: 20px;
       font-weight: bold;
       font-size: 30px;
       line-height: 36px;

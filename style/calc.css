@@ -140,7 +140,7 @@ body {
   border: 1px solid #09c51c;
 }
 .container .form-group {
-  margin-top: 50px;
+  margin-top: 34px;
 }
 @media only screen and (max-width: 567px) {
   .container .form-group {
@@ -148,6 +148,7 @@ body {
   }
 }
 .container .form-group input[type=text],
+.container .form-group input[type=number],
 .container .form-group input[type=email] {
   width: 100%;
   font-weight: normal;
@@ -161,6 +162,7 @@ body {
   margin-top: 10px;
 }
 .container .form-group input[type=text]:focus,
+.container .form-group input[type=number]:focus,
 .container .form-group input[type=email]:focus {
   outline: none;
   border-color: #da2a89;
@@ -255,8 +257,16 @@ body {
   cursor: none;
 }
 
+#calc-2 .button-wrapper {
+  margin-top: 37px;
+}
 #calc-2 .heading-top {
   margin: 42px 0 32px 0;
+}
+@media screen and (max-width: 768px) {
+  #calc-2 .heading-top {
+    margin: 32px 0 20px 0;
+  }
 }
 #calc-2 .checkbox-items div {
   position: relative;
@@ -289,17 +299,16 @@ body {
   font-size: 24px;
   line-height: 29px;
   margin: 0;
-  padding-bottom: 30px;
 }
 @media only screen and (max-width: 567px) {
   .crypto-card .prices-heading {
     font-weight: 600;
     font-size: 20px;
     line-height: 20px;
-    padding-bottom: 20px;
   }
 }
 .crypto-card .prices {
+  padding-top: 30px;
   font-weight: 700;
   font-size: 48px;
   line-height: 58px;
@@ -308,6 +317,7 @@ body {
 }
 @media only screen and (max-width: 567px) {
   .crypto-card .prices {
+    padding-top: 20px;
     font-weight: bold;
     font-size: 30px;
     line-height: 36px;

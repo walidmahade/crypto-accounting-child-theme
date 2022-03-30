@@ -66,33 +66,38 @@
 
     <div class="container" id="calc-2">
         <div class="crypto-card">
-            <h1 class="prices-heading">Dine kryptopriser</h1>
-            <h1 class="prices">{{ form.sum }} kr</h1>
+            <h1 class="prices-heading">{{form.transactions !== '4000+' ? 'Dine kryptopriser' : 'Kontakt oss for pris' }}</h1>
+            <h1 class="prices" v-show="form.transactions !== '4000+'">{{ form.sum }} kr</h1>
         </div>
         <div class="text">
-            <h1 class="heading heading-top">Se ditt resultat</h1>
+            <h1 class="heading heading-top">Pris for</h1>
         </div>
 
         <div class="checkbox-items">
             <div v-for="label in chosenOptions" v-text="label.title">( Buy and sell )kjøp og salg</div>
+            <div>Transaksjoner: {{form.transactions}}</div>
         </div>
         <!-- checkbox-items -->
 
         <div class=" form-group">
             <form>
                 <label for="username">Nvan</label>
-                <input type="text" placeholder="Skriv din epost" id="username" name="username" v-model="form.username">
+                <input type="text" placeholder="Din nvan" id="username" name="username" v-model="form.username">
                 <br>
                 <br>
                 <label for="email">Epost</label>
                 <input type="email" placeholder="Skriv din epost" id="email" name="email" v-model="form.email">
+                <br>
+                <br>
+                <label for="phone">Telefon</label>
+                <input type="number" placeholder="Din telefon" id="phone" name="phone" v-model="form.phone">
             </form>
         </div>
 
         <div class="button-wrapper">
             <button :class="[{ 'deliver-btn-disabled': !form.email || !form.username }, 'deliver-btn']"
                     @click.prevent="submitData()">
-              {{ form.isLoading ? ' ' : 'Se ditt resultat' }}
+              {{ form.isLoading ? ' ' : 'Kontakt oss' }}
               <div v-show="form.isLoading" class="loader">Loading...</div>
             </button>
         </div>
@@ -115,13 +120,23 @@
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
 <script>
+  const transactionCost = {
+    "500": 5000,
+    "1000": 8000,
+    "2000": 15000,
+    "3000": 22000,
+    "3500": 29000,
+    "4000+": 0
+  }
+
+
   Vue.createApp({
     data() {
       return {
         contactFormId: 1509,
         baseUrl: 'https://crypto-acc.getonnet.dev',
         options: [
-          { id: 1, title: 'kjøp og salg', value: 7000},
+          { id: 1, title: 'Kjøp og salg', value: 7000},
           { id: 2, title: 'Futures/leverage', value: 4000},
           { id: 3, title: 'Farming/Yield Farming/Liquidity Mining', value: 6000},
           { id: 4, title: 'Kjøp av noder eller lignende', value: 8000},
@@ -131,11 +146,12 @@
         ],
         choices: [1],
         chosenOptions: [
-          { id: 1, title: 'kjøp og salg', value: 7000},
+          { id: 1, title: 'Kjøp og salg', value: 7000},
         ],
         form: {
           username: '',
           email: '',
+          phone: '',
           sum: 7000,
           transactions: 0,
           isLoading: false,
@@ -148,9 +164,8 @@
     },
     methods: {
       goTextStep() {
-        let transactionsValue = parseInt($(".current-value").text());
-        this.form.transactions = transactionsValue;
-        this.form.sum += transactionsValue;
+        this.form.transactions = $(".current-value").text();
+        this.form.sum += transactionCost[this.form.transactions];
       },
       submitData() {
         this.form.isLoading = true;
@@ -158,6 +173,7 @@
         let formData = new FormData();
         formData.append('username', this.form.username);
         formData.append('email', this.form.email);
+        formData.append('phone', this.form.phone);
         formData.append('transactions', this.form.transactions);
 
         this.chosenOptions.forEach((item) => {
