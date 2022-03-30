@@ -185,6 +185,12 @@ body {
       color: #282828;
       top: -50px;
       transform: translateX(-50%);
+
+      @media screen and (max-width: 768px) {
+        font-size: 22px;
+        line-height: 30px;
+        transform: translateX(-20%);
+      }
     }
 
     .custom-range {

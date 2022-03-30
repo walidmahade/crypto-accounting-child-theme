@@ -131,7 +131,7 @@
         ],
         choices: [1],
         chosenOptions: [
-            { "title": 'kjøp og salg' },
+          { id: 1, title: 'kjøp og salg', value: 7000},
         ],
         form: {
           username: '',
@@ -222,6 +222,7 @@
         fakeBar.css("width", 0 + "%");
       },
       slide: function (event, ui) {
+        let incrementer = (ui.value / 500) - 1
         if (ui.value > 4000) {
           $('#go-to-next-step').text('Kontakt oss for pris');
           currentVal.text('4000+');
@@ -229,8 +230,16 @@
           $('#go-to-next-step').text('Send meg et tilbud');
           currentVal.text((ui.value));
         }
-        currentVal.css("left", ((ui.value / 500) - 1) * 12.5 + "%");
-        fakeBar.css("width", ((ui.value / 500) - 1) * 12.5 + "%");
+        if (incrementer < 7) {
+          currentVal.css("left", (incrementer * 12.5) + "%");
+        } else {
+          if ($(window).width() < 768) {
+            currentVal.css("left", "85%");
+          } else {
+            currentVal.css("left", "100%");
+          }
+        }
+        fakeBar.css("width", (incrementer * 12.5) + "%");
       },
     });
 

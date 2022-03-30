@@ -179,6 +179,13 @@ body {
   top: -50px;
   transform: translateX(-50%);
 }
+@media screen and (max-width: 768px) {
+  .container #mw-range-slider .current-value {
+    font-size: 22px;
+    line-height: 30px;
+    transform: translateX(-20%);
+  }
+}
 .container #mw-range-slider .custom-range {
   display: flex;
   justify-content: space-between;
