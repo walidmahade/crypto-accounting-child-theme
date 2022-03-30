@@ -1,0 +1,283 @@
+* {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+.calculator {
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  background-image: url(../image/crypto-Bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 40px 20px 100px;
+  box-sizing: border-box;
+}
+@media only screen and (max-width: 567px) {
+  .calculator {
+    padding-top: 65px;
+    padding-bottom: 56px;
+  }
+}
+.calculator .crypto-logo {
+  text-align: center;
+}
+
+.container {
+  max-width: 840px;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 4px 64px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 209px;
+  margin: 100px auto 0;
+  display: none;
+}
+.container.visible {
+  display: flex;
+}
+@media only screen and (max-width: 767px) {
+  .container {
+    padding: 60px 100px;
+  }
+}
+@media only screen and (max-width: 567px) {
+  .container {
+    padding: 40px 20px;
+    margin-top: 48px;
+  }
+}
+.container .heading {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #282828;
+  margin: 0;
+}
+@media only screen and (max-width: 567px) {
+  .container .heading {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+.container .heading-top {
+  margin: 10px 0 32px 0;
+}
+.container .heading-bottom {
+  margin: 42px 0 20px 0;
+}
+.container .checkbox-items {
+  margin-left: 35px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+}
+.container .checkbox-items input[type=checkbox] {
+  display: none;
+}
+.container .checkbox-items label {
+  position: relative;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #282828;
+}
+@media only screen and (max-width: 567px) {
+  .container .checkbox-items label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+.container .checkbox-items label::before {
+  content: "";
+  background: url(../image/Check-mark.svg) center;
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: -34px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  transform: scale(0);
+  transition: all 0.3s ease-in-out;
+}
+.container .checkbox-items input[type=checkbox]:checked + ::before {
+  transform: scale(1);
+}
+.container .checkbox-items label::after {
+  content: "";
+  border: 1px solid #282828;
+  width: 19px;
+  height: 19px;
+  position: absolute;
+  left: -34.5px;
+  top: -0.5px;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+}
+.container .checkbox-items input[type=checkbox]:checked + ::after {
+  border: 1px solid #09c51c;
+}
+.container .form-group {
+  margin-top: 50px;
+}
+@media only screen and (max-width: 567px) {
+  .container .form-group {
+    margin-top: 30px;
+  }
+}
+.container .form-group input[type=email] {
+  width: 100%;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  opacity: 0.5;
+  padding: 19px 0 19px 30px;
+  border: 1px solid #28282852;
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+.container #mw-range-slider {
+  margin-top: 50px;
+  border-radius: 4px;
+}
+.container #mw-range-slider .current-value {
+  position: absolute;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 36px;
+  color: #282828;
+  top: -50px;
+  transform: translateX(-50%);
+}
+.container #mw-range-slider .custom-range {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+.container #mw-range-slider .fake-bar {
+  border: 1px solid #f12c73;
+  border-radius: 4px;
+  width: 101%;
+  margin-top: -1px;
+  width: 0%;
+}
+.container #mw-range-slider .start,
+.container #mw-range-slider .end {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #282828;
+}
+.container #custom-handle {
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  margin-top: -0.7em;
+  text-align: center;
+  line-height: 1.4em;
+  background: #ffffff;
+  border: 2px solid #f12c73;
+  box-shadow: 0 2px 12px rgba(74, 29, 45, 0.29);
+  border-radius: 50%;
+  outline: none;
+}
+.container .ui-slider-horizontal {
+  height: 0;
+}
+.container .button-wrapper {
+  width: 100%;
+  margin-top: 74px;
+}
+.container .deliver-btn {
+  border: none;
+  width: 100%;
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #ffffff;
+  background: #f12c73;
+  border-radius: 60px;
+  padding: 22px;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0px 8px 20px rgba(255, 52, 125, 0);
+  transition: all 0.3s ease-in-out;
+}
+.container .deliver-btn:hover {
+  background: #FF347D;
+  box-shadow: 0px 8px 20px rgba(255, 52, 125, 0.25);
+}
+.container .deliver-btn-disabled {
+  background: #bebabc;
+  pointer-events: none;
+  cursor: none;
+}
+
+#calc-2 .heading-top {
+  margin: 42px 0 32px 0;
+}
+
+.crypto-card {
+  box-sizing: border-box;
+  background: #fbf7f8;
+  border-radius: 30px;
+  padding: 50px 0;
+  text-align: center;
+}
+@media only screen and (max-width: 567px) {
+  .crypto-card {
+    padding: 40px 0;
+  }
+}
+.crypto-card .prices-heading {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
+  padding-bottom: 30px;
+}
+@media only screen and (max-width: 567px) {
+  .crypto-card .prices-heading {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 20px;
+    padding-bottom: 20px;
+  }
+}
+.crypto-card .prices {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 58px;
+  color: #f12c73;
+  margin: 0;
+}
+@media only screen and (max-width: 567px) {
+  .crypto-card .prices {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 36px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
