@@ -21,13 +21,13 @@
 
 <body>
 <section class="calculator" id="app">
-    <div class="crypto-logo">
+    <a class="crypto-logo" href="/" style="display: block;">
         <img src="<?php echo get_stylesheet_directory_uri() ?>/image/logo.svg" alt="crypto-logo" />
-    </div>
+    </a>
 
     <div class="container visible" id="calc-1">
         <div class="text">
-            <h1 class="heading heading-top">Send meg et tilbud</h1>
+            <h1 class="heading heading-top">Hvilke tjenester har du benyttet deg av i 2021?</h1>
         </div>
 
         <div class="checkbox-items">
@@ -41,7 +41,7 @@
         <!-- checkbox-items -->
 
         <div class="text">
-            <h1 class="heading heading-bottom">Hvor mange transaksjoner</h1>
+            <h1 class="heading heading-bottom">Hvor mange transaksjoner finner vi i lommebøkene og på børsene du handler?</h1>
         </div>
 
         <div id="mw-range-slider">
@@ -97,7 +97,7 @@
         <div class="button-wrapper">
             <button :class="[{ 'deliver-btn-disabled': !form.email || !form.username }, 'deliver-btn']"
                     @click.prevent="submitData()">
-              {{ form.isLoading ? ' ' : 'Kontakt oss' }}
+              {{ form.isLoading ? ' ' : 'Send meg tilbud' }}
               <div v-show="form.isLoading" class="loader">Loading...</div>
             </button>
         </div>
@@ -119,35 +119,28 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
+<?php
+$transaction_cost = get_field('transaction_cost', 'option');
+$user_options = get_field('user_options', 'option');
+?>
+
 <script>
   const transactionCost = {
-    "500": 5000,
-    "1000": 8000,
-    "2000": 15000,
-    "3000": 22000,
-    "3500": 29000,
-    "4000+": 0
+    <?php
+    foreach ($transaction_cost as $row) {
+      echo '"'.$row['count'] . '": ' . $row['cost'].', ';
+    }
+    ?>
   }
-
 
   Vue.createApp({
     data() {
       return {
         contactFormId: 1509,
         baseUrl: 'https://crypto-acc.getonnet.dev',
-        options: [
-          { id: 1, title: 'Kjøp og salg', value: 7000},
-          { id: 2, title: 'Futures/leverage', value: 4000},
-          { id: 3, title: 'Farming/Yield Farming/Liquidity Mining', value: 6000},
-          { id: 4, title: 'Kjøp av noder eller lignende', value: 8000},
-          { id: 5, title: 'NFT`er', value: 5000},
-          { id: 6, title: 'Fått airdrop', value: 4000},
-          { id: 7, title: 'Mining', value: 5000},
-        ],
+        options:  <?php echo json_encode($user_options); ?>,
         choices: [1],
-        chosenOptions: [
-          { id: 1, title: 'Kjøp og salg', value: 7000},
-        ],
+        chosenOptions: [],
         form: {
           username: '',
           email: '',
@@ -164,8 +157,9 @@
     },
     methods: {
       goTextStep() {
+        console.log(transactionCost)
         this.form.transactions = $(".current-value").text();
-        this.form.sum += transactionCost[this.form.transactions];
+        this.form.sum += Number(transactionCost[this.form.transactions]);
       },
       submitData() {
         this.form.isLoading = true;
@@ -208,13 +202,16 @@
           for(let j = 0; j < this.options.length; j++) {
             if (this.choices[i] === this.options[j].id) {
               this.chosenOptions.push(this.options[j]);
-              this.form.sum += this.options[j].value;
+              this.form.sum += Number(this.options[j].value);
               break;
             }
           }
         }
       }
     },
+    mounted() {
+      this.chosenOptions.push(this.options[0]);
+    }
   }).mount('#app')
 </script>
 
