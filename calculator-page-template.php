@@ -68,10 +68,10 @@
         <div class="crypto-card">
             <h1 class="prices-heading">{{form.transactions !== '4000+' ? 'Dine kryptopriser' : 'Kontakt oss for pris' }}</h1>
             <h1 class="prices" v-show="form.transactions !== '4000+'">{{ form.sum }} kr</h1>
-            <h4 class="" v-show="form.transactions !== '4000+'">
+            <h4 v-show="form.transactions !== '4000+'">
               {{ NOKtoBTC }} BTC
             </h4>
-            <h4 class="" v-show="form.transactions !== '4000+'">
+            <h4 style="margin-bottom: 0;" v-show="form.transactions !== '4000+'">
               {{ NOKtoETH }} ETH
             </h4>
         </div>
