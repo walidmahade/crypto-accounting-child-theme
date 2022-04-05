@@ -68,6 +68,12 @@
         <div class="crypto-card">
             <h1 class="prices-heading">{{form.transactions !== '4000+' ? 'Dine kryptopriser' : 'Kontakt oss for pris' }}</h1>
             <h1 class="prices" v-show="form.transactions !== '4000+'">{{ form.sum }} kr</h1>
+            <h4 class="" v-show="form.transactions !== '4000+'">
+              {{ NOKtoBTC }} BTC
+            </h4>
+            <h4 class="" v-show="form.transactions !== '4000+'">
+              {{ NOKtoETH }} ETH
+            </h4>
         </div>
         <div class="text">
             <h1 class="heading heading-top">Pris for</h1>
@@ -81,8 +87,8 @@
 
         <div class=" form-group">
             <form>
-                <label for="username">Nvan</label>
-                <input type="text" placeholder="Din nvan" id="username" name="username" v-model="form.username">
+                <label for="username">Navn</label>
+                <input type="text" placeholder="Din navn" id="username" name="username" v-model="form.username">
                 <br>
                 <br>
                 <label for="email">Epost</label>
@@ -137,10 +143,17 @@ $user_options = get_field('user_options', 'option');
     data() {
       return {
         contactFormId: 1509,
-        baseUrl: 'https://crypto-acc.getonnet.dev',
+        baseUrl: 'https://cryptoaccounting.no',
         options:  <?php echo json_encode($user_options); ?>,
         choices: [1],
         chosenOptions: [],
+        // this rates are against BTC
+        cryptoExchangeRates: {
+          'BTC': 1,
+          'ETH': 1,
+          'NOK': 1,
+          'error': ''
+        },
         form: {
           username: '',
           email: '',
@@ -160,6 +173,18 @@ $user_options = get_field('user_options', 'option');
         console.log(transactionCost)
         this.form.transactions = $(".current-value").text();
         this.form.sum += Number(transactionCost[this.form.transactions]);
+      },
+      getCryptoExchangeRates() {
+        axios.get(`https://api.coingecko.com/api/v3/exchange_rates`)
+        .then((response) => {
+          // console.log(response);
+          this.cryptoExchangeRates['ETH'] = Number(response.data.rates['eth'].value);
+          this.cryptoExchangeRates['NOK'] = Number(response.data.rates['nok'].value);
+        })
+        .catch((error) => {
+          // console.log(error);
+          this.cryptoExchangeRates['error'] = "Kunne ikke hente valutakurser.";
+        });
       },
       submitData() {
         this.form.isLoading = true;
@@ -194,6 +219,16 @@ $user_options = get_field('user_options', 'option');
         });
       }
     },
+    computed: {
+      NOKtoBTC() {
+        return (Number(this.form.sum) / Number(this.cryptoExchangeRates['NOK'])).toFixed(4)
+      },
+      NOKtoETH() {
+        return (
+            (Number(this.form.sum) * Number(this.cryptoExchangeRates['ETH'])) / Number(this.cryptoExchangeRates['NOK'])
+        ).toFixed(4)
+      },
+    },
     watch: {
       choices(newChoice, old) {
         this.chosenOptions = [];
@@ -211,6 +246,7 @@ $user_options = get_field('user_options', 'option');
     },
     mounted() {
       this.chosenOptions.push(this.options[0]);
+      this.getCryptoExchangeRates();
     }
   }).mount('#app')
 </script>
