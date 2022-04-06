@@ -10,7 +10,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crypto Accounting - Calculator</title>
+    <title>Crypto Accounting - Priskalkulator</title>
+    <meta name="description" content="Finn din pris på utfylling av RF 1159 skjema på skattemeldingen" />
     <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ?>/style/jquery-ui.min.css" />
     <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ?>/style/calc.css">
     <!-- fonts -->
@@ -58,7 +59,7 @@
         </div>
 
         <div class="button-wrapper">
-            <button class="deliver-btn" :class="[{ 'deliver-btn-disabled': choices.length < 1 || choices.indexOf(1) === -1 }]"
+            <button class="deliver-btn" :class="[{ 'deliver-btn-disabled': choices.length < 1 || choices.indexOf('1') === -1 }]"
                 id="go-to-next-step" @click="goTextStep()">
               Send meg et tilbud</button>
         </div>
@@ -145,7 +146,7 @@ $user_options = get_field('user_options', 'option');
         contactFormId: 1509,
         baseUrl: 'https://cryptoaccounting.no',
         options:  <?php echo json_encode($user_options); ?>,
-        choices: [1],
+        choices: ['1'],
         chosenOptions: [],
         // this rates are against BTC
         cryptoExchangeRates: {
@@ -170,7 +171,7 @@ $user_options = get_field('user_options', 'option');
     },
     methods: {
       goTextStep() {
-        console.log(transactionCost)
+        //console.log(transactionCost)
         this.form.transactions = $(".current-value").text();
         this.form.sum += Number(transactionCost[this.form.transactions]);
       },
@@ -204,7 +205,7 @@ $user_options = get_field('user_options', 'option');
         // send request to contact form 7
         axios.post(`${this.baseUrl}/wp-json/contact-form-7/v1/contact-forms/${this.contactFormId}/feedback`, formData)
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           if (response.data.status === 'validation_failed') {
             this.form.isLoading = false;
             this.form.message.error = 'Ett eller flere felt har feil';
@@ -214,7 +215,7 @@ $user_options = get_field('user_options', 'option');
           }
         })
         .catch(function (error) {
-          console.log(error);
+          //console.log(error);
           this.form.isLoading = false;
         });
       }
